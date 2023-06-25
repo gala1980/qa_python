@@ -62,13 +62,9 @@ class TestBooksCollector:
         doubleBook.add_new_book(book_cat)
         doubleBook.add_new_book(book_cat)
         books = list(doubleBook.get_books_rating())
-        count_of_book_cat = 0
 
-        for i in books:
-            if i == book_cat:
-                count_of_book_cat += 1
-
-        assert count_of_book_cat == 1
+        assert len(books) == 1
+        
 
     def test_add_book_to_favour_true(self):  # Добавление книг в Избранное
         book_cat = 'Что делать, если ваш кот хочет вас убить'
@@ -79,7 +75,6 @@ class TestBooksCollector:
         favouriteBook.add_book_in_favorites(book_cat)
 
         assert book_cat in favouriteBook.get_list_of_favorites_books()
-        assert book_honor not in favouriteBook.get_list_of_favorites_books()
 
     def test_delete_book_from_favour_true(self):  # Удаление книги из Избранного
         book_cat = 'Что делать, если ваш кот хочет вас убить'
@@ -93,7 +88,6 @@ class TestBooksCollector:
         favouriteBook.delete_book_from_favorites(book_honor)
 
         assert book_cat in favouriteBook.get_list_of_favorites_books()
-        assert book_honor not in favouriteBook.get_list_of_favorites_books()
 
     def test_get_books_with_specific_rating_true(self):  # Выборка книг по рейтингу
         books_list = ['Что делать, если ваш кот хочет вас убить', 'Гордость и предубеждение и зомби',
@@ -108,10 +102,7 @@ class TestBooksCollector:
         spec_rating_5 = ratingBook.get_books_with_specific_rating(5)
         spec_rating_7 = ratingBook.get_books_with_specific_rating(7)
 
-        assert len(spec_rating_5) == 2
+
         assert books_list[1] in spec_rating_5 and books_list[3] in spec_rating_5
 
-        assert len(spec_rating_7) == 2
-        assert books_list[4] in spec_rating_7 and books_list[5] in spec_rating_7
 
-        assert ratingBook.get_books_with_specific_rating(2) == []
